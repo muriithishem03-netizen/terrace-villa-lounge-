@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terrace Wedge Villa & Lounge — Kutus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ─── Design Tokens ─────────────────────────────────── */
+:root {
+  --terrace-burgundy: #2d4a3e;
+  --terrace-burgundy-light: #3a6154;
+  --terrace-gold: #c49a3c;
+  --terrace-gold-pale: #d9b96a;
+  --terrace-gold-dim: rgba(196,154,60,0.15);
+  --bg-dark: #1a1f1e;
+  --bg-mid: #141918;
+  --bg-light: #ffffff;
+  --bg-subtle: #f7f8f6;
+  --text-main: #212529;
+  --text-muted: #6c757d;
+  --text-light: rgba(255,255,255,0.82);
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+  --shadow-card: 0 8px 40px rgba(0,0,0,0.13);
+  --shadow-gold: 0 0 0 2px var(--terrace-gold);
+  --transition: 0.3s cubic-bezier(.4,0,.2,1);
+  --nav-h: 68px;
+}
+
+/* ─── Reset & Base ──────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  background: var(--bg-light);
+  overflow-x: hidden;
+}
+img { display: block; width: 100%; object-fit: cover; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+
+/* ─── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--terrace-gold); border-radius: 3px; }
+
+/* ─── Utility ───────────────────────────────────────── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terrace-gold);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 12px;
+}
+.serif { font-family: 'Playfair Display', serif; }
+
+/* ─── NAV ───────────────────────────────────────────── */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  height: var(--nav-h);
+  display: flex; align-items: center;
+  padding: 0 32px;
+  background: rgba(10,18,14,0.75);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border-bottom: 1px solid rgba(196,154,60,0.15);
+  transition: background var(--transition);
+}
+#navbar.scrolled { background: rgba(10,18,14,0.97); }
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: var(--terrace-gold);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-brand span { color: rgba(255,255,255,0.55); font-weight: 400; }
+.nav-links {
+  display: flex; align-items: center; gap: 32px;
+  margin-left: auto;
+  list-style: none;
+}
+.nav-links a {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--terrace-gold); }
+.nav-cta-btn {
+  margin-left: 20px;
+  padding: 9px 22px;
+  background: var(--terrace-gold);
+  color: var(--bg-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), transform var(--transition);
+}
+.nav-cta-btn:hover { background: var(--terrace-gold-pale); transform: translateY(-1px); }
+.nav-hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  margin-left: auto; padding: 8px; cursor: pointer;
+}
+.nav-hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--terrace-gold);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+.mobile-nav {
+  display: none;
+  position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 890;
+  background: rgba(10,18,14,0.97);
+  backdrop-filter: blur(20px);
+  padding: 24px 32px 32px;
+  border-bottom: 1px solid rgba(196,154,60,0.2);
+  flex-direction: column; gap: 20px;
+  transform: translateY(-10px); opacity: 0;
+  transition: opacity var(--transition), transform var(--transition);
+}
+.mobile-nav.open { display: flex; transform: translateY(0); opacity: 1; }
+.mobile-nav a {
+  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav-cta {
+  margin-top: 8px;
+  padding: 13px;
+  background: var(--terrace-gold);
+  color: var(--bg-dark);
+  font-weight: 700;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+}
+
+/* ─── HERO ──────────────────────────────────────────── */
+#hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex; align-items: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+}
+.hero-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  animation: heroZoom 18s ease-in-out infinite alternate;
+}
+@keyframes heroZoom { from { transform: scale(1.04); } to { transform: scale(1.10); } }
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(20,35,30,0.82) 0%,
+    rgba(15,22,18,0.75) 55%,
+    rgba(10,14,12,0.88) 100%
+  );
+  z-index: 1;
+}
+/* gold diagonal accent line */
+.hero-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(160deg, rgba(212,175,55,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 760px;
+  padding: 0 24px;
+  margin: 0 auto;
+  text-align: center;
+  animation: heroFadeUp 1.1s ease both;
+}
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 7px 18px;
+  border: 1px solid rgba(212,175,55,0.45);
+  border-radius: 100px;
+  margin-bottom: 28px;
+  animation: heroFadeUp 1s 0.2s ease both;
+}
+.hero-badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--terrace-gold);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(212,175,55,0); }
+}
+.hero-badge span {
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--terrace-gold); font-weight: 600;
+}
+.hero-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.1rem, 5.5vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 22px;
+  animation: heroFadeUp 1s 0.35s ease both;
+}
+.hero-h1 em {
+  font-style: italic;
+  color: var(--terrace-gold);
+}
+.hero-tagline {
+  font-size: clamp(0.92rem, 1.8vw, 1.05rem);
+  line-height: 1.75;
+  color: var(--text-light);
+  max-width: 560px;
+  margin: 0 auto 38px;
+  font-weight: 300;
+  animation: heroFadeUp 1s 0.5s ease both;
+}
+.hero-actions {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  justify-content: center;
+  animation: heroFadeUp 1s 0.65s ease both;
+}
+.btn-primary {
+  padding: 15px 34px;
+  background: var(--terrace-gold);
+  color: var(--bg-dark);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 20px rgba(212,175,55,0.35);
+}
+.btn-primary:hover {
+  background: var(--terrace-gold-pale);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(212,175,55,0.45);
+}
+.btn-outline {
+  padding: 15px 34px;
+  background: transparent;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  transition: border-color var(--transition), color var(--transition), transform var(--transition);
+}
+.btn-outline:hover {
+  border-color: var(--terrace-gold);
+  color: var(--terrace-gold);
+  transform: translateY(-2px);
+}
+.hero-stats {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 48px;
+  z-index: 2;
+  animation: heroFadeUp 1s 0.85s ease both;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem; font-weight: 700;
+  color: var(--terrace-gold);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); margin-top: 4px;
+}
+
+/* ─── FEATURES ──────────────────────────────────────── */
+#features {
+  padding: 100px 0;
+  background: var(--bg-light);
+}
+.features-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.features-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+.features-header p {
+  color: var(--text-muted);
+  font-size: 1rem; line-height: 1.7;
+  max-width: 500px; margin: 0 auto;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  gap: 28px;
+}
+.feature-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-light);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.16);
+}
+.feature-card-img {
+  height: 210px;
+  overflow: hidden;
+  position: relative;
+}
+.feature-card-img img {
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(.4,0,.2,1);
+}
+.feature-card:hover .feature-card-img img { transform: scale(1.07); }
+.feature-card-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(20,40,32,0.55) 100%);
+}
+.feature-icon {
+  position: absolute; bottom: 16px; right: 16px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--terrace-gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  z-index: 2;
+  box-shadow: 0 4px 16px rgba(212,175,55,0.4);
+}
+.feature-body { padding: 26px 26px 28px; }
+.feature-body h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--terrace-burgundy);
+}
+.feature-body p {
+  font-size: 0.88rem; line-height: 1.72;
+  color: var(--text-muted);
+}
+.feature-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 16px;
+  padding: 5px 12px;
+  background: var(--terrace-gold-dim);
+  border-radius: 100px;
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #8a6d0c;
+}
+
+/* ─── ABOUT STRIP ───────────────────────────────────── */
+#about {
+  background: var(--terrace-burgundy);
+  padding: 80px 0;
+  overflow: hidden;
+  position: relative;
+}
+#about::before {
+  content: '"';
+  position: absolute;
+  top: -40px; right: 60px;
+  font-family: 'Playfair Display', serif;
+  font-size: 26rem;
+  color: rgba(196,154,60,0.06);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.about-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+}
+.about-text .section-label { color: var(--terrace-gold-pale); }
+.about-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+.about-text p {
+  color: rgba(255,255,255,0.72);
+  font-size: 0.95rem; line-height: 1.8;
+  margin-bottom: 16px;
+}
+.about-checklist { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+.about-checklist li {
+  display: flex; align-items: flex-start; gap: 12px;
+  color: rgba(255,255,255,0.82);
+  font-size: 0.88rem;
+}
+.about-checklist li::before {
+  content: '✦';
+  color: var(--terrace-gold);
+  font-size: 0.7rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.about-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 32px;
+  padding: 14px 32px;
+  background: var(--terrace-gold);
+  color: var(--bg-dark);
+  font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), transform var(--transition);
+}
+.about-cta:hover { background: var(--terrace-gold-pale); transform: translateY(-2px); }
+.about-visual {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 420px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+}
+.about-visual img { height: 100%; }
+.about-visual-badge {
+  position: absolute; bottom: 24px; left: 24px;
+  background: rgba(10,18,14,0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(196,154,60,0.3);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  min-width: 170px;
+}
+.about-visual-badge .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem; font-weight: 700;
+  color: var(--terrace-gold);
+  line-height: 1;
+}
+.about-visual-badge .label {
+  font-size: 0.72rem; color: rgba(255,255,255,0.6);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ─── TESTIMONIALS ──────────────────────────────────── */
+#testimonials {
+  padding: 96px 0;
+  background: var(--bg-subtle);
+}
+.testimonials-header {
+  text-align: center; margin-bottom: 56px;
+}
+.testimonials-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-weight: 700; color: var(--text-main);
+  margin-bottom: 12px;
+}
+.testimonials-header p { color: var(--text-muted); font-size: 0.95rem; }
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+.testimonial-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  border: 1px solid rgba(0,0,0,0.05);
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+.testimonial-card::before {
+  content: '❝';
+  position: absolute; top: 20px; right: 24px;
+  font-size: 3rem; line-height: 1;
+  color: var(--terrace-gold-dim);
+  font-family: 'Playfair Display', serif;
+}
+.testimonial-stars { color: var(--terrace-gold); font-size: 0.82rem; margin-bottom: 14px; }
+.testimonial-text {
+  font-size: 0.9rem; line-height: 1.78; color: var(--text-muted);
+  margin-bottom: 20px; font-style: italic;
+}
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--terrace-burgundy);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--terrace-gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700;
+  flex-shrink: 0;
+}
+.testimonial-name { font-size: 0.88rem; font-weight: 600; color: var(--text-main); }
+.testimonial-role { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+/* ─── CONTACT STRIP ─────────────────────────────────── */
+#contact {
+  background: var(--bg-dark);
+  padding: 80px 0;
+}
+.contact-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+}
+.contact-info .section-label { color: var(--terrace-gold); }
+.contact-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700; color: #fff;
+  margin-bottom: 20px; line-height: 1.3;
+}
+.contact-info p {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.92rem; line-height: 1.75; margin-bottom: 32px;
+}
+.contact-detail {
+  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px;
+}
+.contact-detail-icon {
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  background: rgba(212,175,55,0.12);
+  border: 1px solid rgba(212,175,55,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.contact-detail-text strong {
+  display: block; font-size: 0.8rem; color: var(--terrace-gold);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px;
+}
+.contact-detail-text span {
+  font-size: 0.88rem; color: rgba(255,255,255,0.72);
+}
+
+
+/* ─── FOOTER ────────────────────────────────────────── */
+footer {
+  background: #0d1512;
+  border-top: 1px solid rgba(196,154,60,0.12);
+  padding: 40px 0 28px;
+}
+.footer-inner {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 20px; justify-content: space-between;
+}
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700;
+  color: var(--terrace-gold);
+}
+.footer-brand small {
+  display: block; font-family: 'Inter', sans-serif;
+  font-size: 0.72rem; color: rgba(255,255,255,0.35);
+  font-weight: 400; margin-top: 3px; letter-spacing: 0.04em;
+}
+.footer-links {
+  display: flex; gap: 24px; list-style: none; flex-wrap: wrap;
+}
+.footer-links a {
+  font-size: 0.78rem; color: rgba(255,255,255,0.45);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--terrace-gold); }
+.footer-copy {
+  font-size: 0.75rem; color: rgba(255,255,255,0.25);
+  width: 100%; text-align: center; margin-top: 20px;
+  padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ─── BOOKING DRAWER ────────────────────────────────── */
+#drawer-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition);
+}
+#drawer-overlay.active { opacity: 1; pointer-events: all; }
+#booking-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 1001;
+  width: 460px; max-width: 100%;
+  background: #fff;
+  box-shadow: -24px 0 80px rgba(0,0,0,0.25);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+#booking-drawer.open { transform: translateX(0); }
+.drawer-header {
+  background: var(--terrace-burgundy);
+  padding: 28px 28px 24px;
+  flex-shrink: 0;
+}
+.drawer-header-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 6px;
+}
+.drawer-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 700;
+  color: #fff; line-height: 1.2;
+}
+.drawer-header p {
+  font-size: 0.8rem; color: rgba(255,255,255,0.6);
+  margin-top: 4px;
+}
+.drawer-close-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition);
+}
+.drawer-close-btn:hover { background: rgba(255,255,255,0.2); }
+.drawer-body {
+  padding: 28px;
+  overflow-y: auto;
+  flex: 1;
+}
+.drawer-body::-webkit-scrollbar { width: 4px; }
+.drawer-body::-webkit-scrollbar-thumb { background: var(--terrace-gold-dim); border-radius: 2px; }
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block;
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.form-group label span { color: #e53e3e; }
+.form-control {
+  width: 100%; padding: 12px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem; color: var(--text-main);
+  background: #fff;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  appearance: none;
+}
+.form-control:focus {
+  border-color: var(--terrace-gold);
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.14);
+}
+.form-control.error {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229,62,62,0.12);
+}
+.form-control.error:focus {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229,62,62,0.18);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.checkbox-group {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px;
+  background: var(--terrace-gold-dim);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(212,175,55,0.3);
+  cursor: pointer;
+}
+.checkbox-group input[type="checkbox"] {
+  width: 18px; height: 18px; accent-color: var(--terrace-burgundy);
+  flex-shrink: 0; margin-top: 1px; cursor: pointer;
+}
+.checkbox-label { font-size: 0.84rem; line-height: 1.5; color: var(--text-main); cursor: pointer; }
+.checkbox-label strong { color: var(--terrace-burgundy); }
+/* Live Invoice Box */
+.invoice-box {
+  margin: 24px 0 20px;
+  padding: 20px;
+  border: 2px solid var(--terrace-gold);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #fffef7 0%, #fef9e7 100%);
+}
+.invoice-box-title {
+  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 600; margin-bottom: 14px;
+}
+.invoice-line {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.84rem; color: var(--text-muted);
+  padding: 5px 0;
+  border-bottom: 1px dashed rgba(0,0,0,0.08);
+}
+.invoice-line:last-of-type { border-bottom: none; }
+.invoice-line.total {
+  font-size: 1rem; font-weight: 700; color: var(--text-main);
+  border-top: 2px solid var(--terrace-gold);
+  margin-top: 8px; padding-top: 12px;
+  border-bottom: none;
+}
+.invoice-line.total span:last-child {
+  font-family: 'Playfair Display', serif;
+  color: var(--terrace-burgundy); font-size: 1.15rem;
+}
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: #25d366;
+  color: #fff;
+  font-size: 0.88rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: background var(--transition), transform var(--transition);
+  margin-bottom: 12px;
+}
+.submit-btn:hover { background: #1db954; transform: translateY(-1px); }
+.submit-btn svg { width: 20px; height: 20px; fill: #fff; }
+.drawer-disclaimer {
+  font-size: 0.72rem; text-align: center; color: var(--text-muted);
+  line-height: 1.6;
+}
+.error-msg {
+  font-size: 0.75rem; color: #e53e3e; margin-top: 5px; display: none;
+}
+.error-msg.show { display: block; }
+
+/* ─── FLOATING BOOK BTN ──────────────────────────────── */
+.fab {
+  position: fixed; bottom: 28px; right: 28px; z-index: 800;
+  padding: 14px 24px;
+  background: var(--terrace-gold);
+  color: var(--bg-dark);
+  font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 100px;
+  box-shadow: 0 6px 32px rgba(212,175,55,0.45);
+  display: flex; align-items: center; gap: 8px;
+  transition: transform var(--transition), box-shadow var(--transition);
+  animation: fabBounce 3s 2s ease-in-out infinite;
+}
+.fab:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(212,175,55,0.55);
+  animation: none;
+}
+@keyframes fabBounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .about-inner { grid-template-columns: 1fr; gap: 40px; }
+  .about-visual { height: 300px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  #navbar { padding: 0 20px; }
+  .hero-stats { gap: 28px; bottom: 28px; }
+  .hero-stat-num { font-size: 1.3rem; }
+  .form-row { grid-template-columns: 1fr; }
+  #booking-drawer { width: 100%; }
+  .fab { bottom: 20px; right: 20px; padding: 12px 18px; font-size: 0.74rem; }
+  .features-grid { grid-template-columns: 1fr; }
+  footer .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+
+/* ─── SCROLL-REVEAL ──────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="nav-brand">TERRACE WEDGE <span>VILLA</span></div>
+  <ul class="nav-links">
+    <li><a href="#features">Amenities</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" class="nav-cta-btn open-drawer">Book Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#features" class="mobile-nav-close">Amenities</a>
+  <a href="#about" class="mobile-nav-close">About</a>
+  <a href="#testimonials" class="mobile-nav-close">Reviews</a>
+  <a href="#contact" class="mobile-nav-close">Contact</a>
+  <a href="#" class="mobile-nav-cta open-drawer mobile-nav-close">Reserve a Stay / Book Now</a>
+</div>
+
+<!-- ─── HERO ─────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1200" alt="Terrace Wedge Villa — Luxury exterior" loading="eager" />
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span>Kutus, Kirinyaga County · Quality Hospitality</span>
+    </div>
+    <h1 class="hero-h1">
+      A Warm Place to Stay,<br>Meet &amp; <em>Feel at Home</em>
+    </h1>
+    <p class="hero-tagline">
+      Tucked in the heart of Kutus, we offer comfortable rooms with free breakfast, reliable Wi-Fi, and well-equipped meeting spaces — everything you need, nothing you don't.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary open-drawer">Make a Booking</button>
+      <a href="#features" class="btn-outline">See What We Offer</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">24/7</div>
+      <div class="hero-stat-label">Reception</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">★ 4.9</div>
+      <div class="hero-stat-label">Guest Rating</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Free Breakfast</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─────────────────────────────────────── -->
+<section id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <span class="section-label">What We Offer</span>
+      <h2>Everything You Need<br>Under One Roof</h2>
+      <p>Whether you're here for work, a getaway, or an event — we've got you covered with comfortable spaces and friendly service.</p>
+    </div>
+    <div class="features-grid">
+
+      <!-- Card 1 -->
+      <article class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=600" alt="Executive Villa Room" loading="lazy" />
+          <div class="feature-icon">🛏️</div>
+        </div>
+        <div class="feature-body">
+          <h3>Comfortable Villa Rooms</h3>
+          <p>Spacious, well-kept rooms with free high-speed Wi-Fi, daily housekeeping, room service, and secure parking. Every stay includes a complimentary breakfast each morning.</p>
+          <div class="feature-tag">✦ Breakfast Included</div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600" alt="Conference and Meeting Room" loading="lazy" />
+          <div class="feature-icon">🏛️</div>
+        </div>
+        <div class="feature-body">
+          <h3>Conference &amp; Meeting Spaces</h3>
+          <p>A clean, well-equipped meeting room ready for seminars, training sessions, team meetings, or private events. AV equipment and catering can be arranged on request.</p>
+          <div class="feature-tag">✦ AV &amp; Catering Available</div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=600" alt="Restaurant & Bar Lounge" loading="lazy" />
+          <div class="feature-icon">🍷</div>
+        </div>
+        <div class="feature-body">
+          <h3>Restaurant &amp; Bar Lounge</h3>
+          <p>Enjoy a relaxed meal at our in-house restaurant or unwind with a drink at the bar. Our team takes pride in good food, friendly service, and a comfortable atmosphere.</p>
+          <div class="feature-tag">✦ Full Bar Service</div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="feature-card reveal">
+        <div class="feature-card-img" style="background: linear-gradient(135deg, var(--terrace-burgundy) 0%, #1a0810 100%); height: 210px; display:flex; align-items:center; justify-content:center; font-size: 5rem;">
+          🛎️
+        </div>
+        <div class="feature-body">
+          <h3>Helpful Staff, Always On</h3>
+          <p>Our team is available around the clock to assist with check-ins, luggage, local directions, and whatever else you might need. We're here to make your stay easy and stress-free.</p>
+          <div class="feature-tag">✦ 24/7 Reception</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT STRIP ───────────────────────────────────── -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text reveal">
+        <span class="section-label">About Terrace Wedge</span>
+        <h2>A Place Where You<br>Feel Right at Home</h2>
+        <p>
+          Terrace Wedge Villa &amp; Lounge is a welcoming hotel in the heart of Kutus, Kirinyaga County. We're proud to offer clean, comfortable accommodation and practical facilities for both work and leisure.
+        </p>
+        <p>
+          Whether you're here for a business trip, attending an event, or just passing through — we want your stay to be simple, pleasant, and memorable for all the right reasons.
+        </p>
+        <ul class="about-checklist">
+          <li>Free high-speed Wi-Fi throughout the property</li>
+          <li>Complimentary breakfast included with every room stay</li>
+          <li>On-site parking — secure and convenient</li>
+          <li>Friendly, attentive staff available around the clock</li>
+          <li>Fully equipped conference room with AV support</li>
+          <li>In-house restaurant and bar lounge</li>
+        </ul>
+        <button class="about-cta open-drawer">Make a Booking →</button>
+      </div>
+      <div class="about-visual reveal">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=600" alt="Executive Room Interior" loading="lazy" />
+        <div class="about-visual-badge">
+          <div class="num">KES 5K</div>
+          <div class="label">per night incl. breakfast</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ──────────────────────────────────── -->
+<section id="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <span class="section-label">Guest Reviews</span>
+      <h2>What Our Guests Say</h2>
+      <p>Heard from business travellers, event organisers, and families across Kenya.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"One of the best stays I've had in the Kirinyaga region. The breakfast was great, the room was spotless, and the conference space was exactly what our team needed."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JM</div>
+          <div>
+            <div class="testimonial-name">James Mwangi</div>
+            <div class="testimonial-role">Corporate Director, Nairobi</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The lounge has such a lovely vibe — we held our team dinner here and everyone enjoyed it. We'll definitely be back for our next event."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AW</div>
+          <div>
+            <div class="testimonial-name">Amina Wanjiru</div>
+            <div class="testimonial-role">Event Planner, Kerugoya</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Stayed here for three nights during a regional audit. Quiet, beautifully maintained, incredibly professional staff — and the breakfast alone is worth coming back for."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">PO</div>
+          <div>
+            <div class="testimonial-name">Peter Otieno</div>
+            <div class="testimonial-role">Senior Auditor, Mombasa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ───────────────────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <span class="section-label">Get In Touch</span>
+        <h2>Find Us in Kutus Town</h2>
+        <p>Terrace Wedge Villa &amp; Lounge is located right in Kutus town, Kirinyaga County — easy to reach from Nairobi and across Central Kenya.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-text">
+            <strong>Address</strong>
+            <span>Kutus Town, Kirinyaga County, Kenya</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <div class="contact-detail-text">
+            <strong>Phone / WhatsApp</strong>
+            <span>+254 700 000 000</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📧</div>
+          <div class="contact-detail-text">
+            <strong>Email</strong>
+            <span>info@terraceWedgevilla.co.ke</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕐</div>
+          <div class="contact-detail-text">
+            <strong>Front Desk Hours</strong>
+            <span>Open 24 Hours — 7 Days a Week</span>
+          </div>
+        </div>
+        <div style="margin-top:28px;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;padding-bottom:56.25%;height:0;">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3303.9061099123987!2d37.32210017399482!3d-0.5677045994267417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182629b368e66855%3A0xf1a47e1747a17874!2sTERRACE%20WEDGE%20VILLA!5e1!3m2!1sen!2ske!4v1780080936426!5m2!1sen!2ske"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Terrace Wedge Villa &amp; Lounge — Kutus, Kirinyaga County">
+          </iframe>
+        </div>
+      </div>
+      <div class="reveal" style="display:flex;flex-direction:column;gap:20px;justify-content:center;">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(196,154,60,0.15);border-radius:20px;padding:36px;">
+          <span class="section-label">Quick Enquiry</span>
+          <p style="color:rgba(255,255,255,0.6);font-size:0.88rem;line-height:1.7;margin-bottom:24px;">Have a question before booking? Get in touch via WhatsApp and we'll get back to you quickly.</p>
+          <button class="open-drawer" style="width:100%;padding:16px;background:var(--terrace-gold);color:var(--bg-dark);font-size:0.84rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:10px;border:none;cursor:pointer;transition:background 0.3s;">
+            Open Booking &amp; Enquiry Form
+          </button>
+          <div style="margin-top:20px;padding:20px;background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);border-radius:12px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:1.5rem;">💬</span>
+            <div>
+              <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">WhatsApp</div>
+              <div style="color:rgba(255,255,255,0.85);font-size:0.88rem;">We usually respond within a few minutes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ───────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        TERRACE WEDGE VILLA &amp; LOUNGE
+        <small>Quality Hospitality · Kutus, Kirinyaga</small>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#features">Amenities</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-copy">
+      © 2025 Terrace Wedge Villa &amp; Lounge. All rights reserved. Kutus, Kirinyaga County, Kenya.
+    </div>
+  </div>
+</footer>
+
+<!-- ─── FLOATING ACTION BUTTON ────────────────────────── -->
+<button class="fab open-drawer" aria-label="Book Now">
+  🛎️ Book Now
+</button>
+
+<!-- ─── BOOKING DRAWER ────────────────────────────────── -->
+<div id="drawer-overlay"></div>
+<aside id="booking-drawer" role="dialog" aria-modal="true" aria-label="Booking Estimator">
+  <div class="drawer-header">
+    <div class="drawer-header-top">
+      <div>
+        <h2>Booking Estimator</h2>
+        <p>Terrace Wedge Villa &amp; Lounge · Kutus</p>
+      </div>
+      <button class="drawer-close-btn" id="drawer-close" aria-label="Close">✕</button>
+    </div>
+  </div>
+  <div class="drawer-body">
+
+    <!-- Full Name -->
+    <div class="form-group">
+      <label for="f-name">Full Name <span>*</span></label>
+      <input type="text" id="f-name" class="form-control" placeholder="e.g. James Mwangi" />
+      <div class="error-msg" id="err-name">Please enter your full name.</div>
+    </div>
+
+    <!-- Phone -->
+    <div class="form-group">
+      <label for="f-phone">Phone / WhatsApp <span>*</span></label>
+      <input type="tel" id="f-phone" class="form-control" placeholder="+254 7XX XXX XXX" />
+      <div class="error-msg" id="err-phone">Please enter a valid phone number.</div>
+    </div>
+
+    <!-- Service + Qty -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="f-service">Service <span>*</span></label>
+        <select id="f-service" class="form-control">
+          <option value="">— Select —</option>
+          <option value="villa">Villa Room Stay</option>
+          <option value="conf">Conference Room (Full Day)</option>
+          <option value="vip">VIP Lounge Table</option>
+        </select>
+        <div class="error-msg" id="err-service">Please select a service.</div>
+      </div>
+      <div class="form-group">
+        <label for="f-qty">Nights / Days <span>*</span></label>
+        <input type="number" id="f-qty" class="form-control" min="1" max="30" value="1" placeholder="1" />
+        <div class="error-msg" id="err-qty">Enter a valid quantity (1–30).</div>
+      </div>
+    </div>
+
+    <!-- Check-in -->
+    <div class="form-group">
+      <label for="f-checkin">Check-in / Event Date <span>*</span></label>
+      <input type="date" id="f-checkin" class="form-control" />
+      <div class="error-msg" id="err-checkin">Please select a date.</div>
+    </div>
+
+    <!-- Full-board dining -->
+    <div class="form-group">
+      <label class="checkbox-group" for="f-dining">
+        <input type="checkbox" id="f-dining" />
+        <span class="checkbox-label">
+          Add <strong>Full-Board Dining Package</strong><br>
+          <small style="color:var(--text-muted);">KES 1,500 per night / day</small>
+        </span>
+      </label>
+    </div>
+
+    <!-- Special requests -->
+    <div class="form-group">
+      <label for="f-notes">Special Requests</label>
+      <textarea id="f-notes" class="form-control" rows="3" placeholder="Any special requirements, room preferences, accessibility needs…" style="resize:vertical;"></textarea>
+    </div>
+
+    <!-- Live Invoice -->
+    <div class="invoice-box" id="invoice-box" style="display:none;">
+      <div class="invoice-box-title">📄 Live Cost Estimate</div>
+      <div class="invoice-line">
+        <span id="inv-service-label">Service</span>
+        <span id="inv-service-cost">KES 0</span>
+      </div>
+      <div class="invoice-line" id="inv-dining-row" style="display:none;">
+        <span>Full-Board Dining Package</span>
+        <span id="inv-dining-cost">KES 0</span>
+      </div>
+      <div class="invoice-line total">
+        <span>Total Estimate</span>
+        <span id="inv-total">KES 0</span>
+      </div>
+    </div>
+
+    <!-- WhatsApp Submit -->
+    <button class="submit-btn" id="whatsapp-submit">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Send Booking via WhatsApp
+    </button>
+    <p class="drawer-disclaimer">
+      This is a cost estimate. Final confirmation is subject to availability.<br>
+      Our team will respond within minutes on WhatsApp.
+    </p>
+  </div>
+</aside>
+
+<!-- ─── SCRIPT ─────────────────────────────────────────── -->
+<script>
+/* ── Rates ──────────────────────────────────────────── */
+const RATE_VILLA_STAY = 5000;   // per night
+const RATE_CONF_HALL  = 12000;  // per full day
+const RATE_VIP_TABLE  = 3000;   // per booking
+const RATE_DINING     = 1500;   // per night/day
+
+const WHATSAPP_PHONE  = 'YOUR_PHONE_PLACEHOLDER';
+
+/* ── DOM Refs ────────────────────────────────────────── */
+const drawer        = document.getElementById('booking-drawer');
+const overlay       = document.getElementById('drawer-overlay');
+const closeBtn      = document.getElementById('drawer-close');
+const hamburger     = document.getElementById('hamburger');
+const mobileNav     = document.getElementById('mobile-nav');
+const navbar        = document.getElementById('navbar');
+
+const fName         = document.getElementById('f-name');
+const fPhone        = document.getElementById('f-phone');
+const fService      = document.getElementById('f-service');
+const fQty          = document.getElementById('f-qty');
+const fCheckin      = document.getElementById('f-checkin');
+const fDining       = document.getElementById('f-dining');
+const fNotes        = document.getElementById('f-notes');
+
+const invoiceBox    = document.getElementById('invoice-box');
+const invServiceLbl = document.getElementById('inv-service-label');
+const invServiceCst = document.getElementById('inv-service-cost');
+const invDiningRow  = document.getElementById('inv-dining-row');
+const invDiningCst  = document.getElementById('inv-dining-cost');
+const invTotal      = document.getElementById('inv-total');
+
+const submitBtn     = document.getElementById('whatsapp-submit');
+
+/* ── Drawer Open/Close ───────────────────────────────── */
+function openDrawer() {
+  drawer.classList.add('open');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  fName.focus();
+}
+function closeDrawer() {
+  drawer.classList.remove('open');
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.open-drawer').forEach(el => {
+  el.addEventListener('click', e => { e.preventDefault(); openDrawer(); });
+});
+closeBtn.addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+/* ── Hamburger ───────────────────────────────────────── */
+hamburger.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', open);
+});
+document.querySelectorAll('.mobile-nav-close').forEach(el => {
+  el.addEventListener('click', () => mobileNav.classList.remove('open'));
+});
+
+/* ── Navbar Scroll ───────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── Live Invoice Calculator ─────────────────────────── */
+function fmt(n) { return 'KES ' + n.toLocaleString('en-KE'); }
+
+function calcInvoice() {
+  const svc = fService.value;
+  const qty = Math.max(1, parseInt(fQty.value) || 1);
+  const dining = fDining.checked;
+
+  if (!svc) { invoiceBox.style.display = 'none'; return; }
+
+  let rate = 0;
+  let svcLabel = '';
+  if (svc === 'villa')  { rate = RATE_VILLA_STAY; svcLabel = `Villa Room Stay × ${qty} night${qty>1?'s':''}`; }
+  if (svc === 'conf')   { rate = RATE_CONF_HALL;  svcLabel = `Conference Room × ${qty} day${qty>1?'s':''}`; }
+  if (svc === 'vip')    { rate = RATE_VIP_TABLE;  svcLabel = `VIP Lounge Table × ${qty} booking${qty>1?'s':''}`; }
+
+  const svcTotal    = rate * qty;
+  const diningTotal = dining ? RATE_DINING * qty : 0;
+  const total       = svcTotal + diningTotal;
+
+  invServiceLbl.textContent = svcLabel;
+  invServiceCst.textContent = fmt(svcTotal);
+  invDiningRow.style.display = dining ? 'flex' : 'none';
+  invDiningCst.textContent  = fmt(diningTotal);
+  invTotal.textContent      = fmt(total);
+  invoiceBox.style.display  = 'block';
+}
+
+[fService, fQty, fDining].forEach(el => el.addEventListener('input', calcInvoice));
+fQty.addEventListener('change', calcInvoice);
+
+/* ── Validation ──────────────────────────────────────── */
+function showErr(id, show) {
+  document.getElementById(id).classList.toggle('show', show);
+}
+function setErr(el, id, invalid) {
+  el.classList.toggle('error', invalid);
+  showErr(id, invalid);
+  return invalid;
+}
+
+function validateForm() {
+  let invalid = false;
+  if (!fName.value.trim())                          { setErr(fName,    'err-name',    true); invalid = true; } else setErr(fName,    'err-name',    false);
+  if (!fPhone.value.trim())                         { setErr(fPhone,   'err-phone',   true); invalid = true; } else setErr(fPhone,   'err-phone',   false);
+  if (!fService.value)                              { setErr(fService, 'err-service', true); invalid = true; } else setErr(fService, 'err-service', false);
+  const q = parseInt(fQty.value);
+  if (isNaN(q) || q < 1 || q > 30)                 { setErr(fQty,     'err-qty',     true); invalid = true; } else setErr(fQty,     'err-qty',     false);
+  if (!fCheckin.value)                              { setErr(fCheckin, 'err-checkin', true); invalid = true; } else setErr(fCheckin, 'err-checkin', false);
+  return !invalid;
+}
+
+/* ── WhatsApp Compiler ───────────────────────────────── */
+submitBtn.addEventListener('click', () => {
+  if (!validateForm()) return;
+
+  const svc = fService.options[fService.selectedIndex].text;
+  const qty = fQty.value;
+  const date = fCheckin.value;
+  const dining = fDining.checked ? 'Yes (+KES 1,500/day)' : 'No';
+  const notes = fNotes.value.trim() || 'None';
+
+  // Compute total for message
+  const rateMap = { villa: RATE_VILLA_STAY, conf: RATE_CONF_HALL, vip: RATE_VIP_TABLE };
+  const baseTotal = (rateMap[fService.value] || 0) * parseInt(qty);
+  const diningTotal = fDining.checked ? RATE_DINING * parseInt(qty) : 0;
+  const grandTotal = baseTotal + diningTotal;
+
+  const message =
+`*🏨 Terrace Wedge Villa Booking Request*
+
+*Guest Name:* ${fName.value.trim()}
+*Phone:* ${fPhone.value.trim()}
+
+*Service:* ${svc}
+*Quantity:* ${qty} night(s) / day(s)
+*Check-in / Event Date:* ${date}
+*Full-Board Dining Package:* ${dining}
+*Special Requests:* ${notes}
+
+*Estimated Total: KES ${grandTotal.toLocaleString('en-KE')}*
+
+_Sent via Terrace Wedge Villa online portal._`;
+
+  const encoded = encodeURIComponent(message);
+  const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encoded}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+});
+
+/* Clear error on input ──────────────────────────────── */
+[fName, fPhone, fService, fQty, fCheckin].forEach(el => {
+  el.addEventListener('input', () => el.classList.remove('error'));
+});
+
+/* ── Scroll Reveal ───────────────────────────────────── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 4) * 0.08}s`;
+  revealObserver.observe(el);
+});
+</script>
+</body>
+</html>
